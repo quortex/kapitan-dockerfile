@@ -1,4 +1,4 @@
-from kapicorp/kapitan:v0.31.0
+from kapicorp/kapitan:v0.31.1-rc.3
 
 ARG YQ_VERSION=v4.21.1
 ARG CIRCLECI_CLI_VERSION=0.1.16947
