@@ -1,4 +1,4 @@
-from kapicorp/kapitan:v0.31.1-rc.3
+FROM kapicorp/kapitan:v0.32.0
 ARG TARGETOS
 ARG TARGETARCH
 
