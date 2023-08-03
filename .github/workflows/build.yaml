@@ -16,10 +16,15 @@ jobs:
   build-and-push:
     name: Build docker image
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
     env:
       IMAGE_NAME: kapitan
       PLATFORMS: linux/amd64,linux/arm64
+      WORKLOAD_IDENTITY_POOL: 'projects/724876838553/locations/global/workloadIdentityPools/github-oidc-pool/providers/github-oidc-provider'
+      SERVICE_ACCOUNT: 'github-kapitan-dockerfile@quortex-admin.iam.gserviceaccount.com'
 
     steps:
       # This step uses Github's checkout-action: https://github.com/actions/checkout
@@ -45,13 +50,22 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
 
       # Login if the event is a push or a tag to be able to push
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_POOL }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+    
       - name: Login to GCR
         uses: docker/login-action@v2
         if: ${{ github.event_name != 'pull_request' }}
         with:
           registry: eu.gcr.io
-          username: _json_key
-          password: ${{ secrets.GCP_SA_KEY }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
 
       # Always build the docker image, and push it on merge or tag
       - name: Build and push
