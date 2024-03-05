@@ -5,6 +5,7 @@ ARG TARGETARCH
 ARG YQ_VERSION=v4.21.1
 ARG CIRCLECI_CLI_VERSION=0.1.26837
 ARG TERRAFORM_DOCS_VERSION=v0.16.0
+ARG RJSONNET_VERSION=0.5.3
 
 USER root
 
@@ -21,6 +22,8 @@ RUN curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/ma
 RUN curl -fLSs ./terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/${TERRAFORM_DOCS_VERSION}/terraform-docs-${TERRAFORM_DOCS_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz | \
   tar xz && chmod +x terraform-docs && \
   mv terraform-docs /usr/bin/terraform-docs
+
+RUN pip install rjsonnet==${RJSONNET_VERSION}
 
 USER kapitan
 
