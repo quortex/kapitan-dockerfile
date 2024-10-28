@@ -1,4 +1,4 @@
-FROM kapicorp/kapitan:0.33.0
+FROM kapicorp/kapitan:0.34.0
 ARG TARGETOS
 ARG TARGETARCH
 
