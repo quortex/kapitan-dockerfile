@@ -1,3 +1,4 @@
+# Do not upgrade kapitan until performance issues are resolved
 FROM kapicorp/kapitan:0.34.0
 ARG TARGETOS
 ARG TARGETARCH
