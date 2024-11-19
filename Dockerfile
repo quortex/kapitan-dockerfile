@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fLSs https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_${TARGETOS}_${TARGETARCH}.tar.gz | \
   tar xz && mv yq_${TARGETOS}_${TARGETARCH} /usr/bin/yq
 
-RUN curl -fLSs https://github.com/carvel-dev/ytt/releases/download/${YTT_VERSION}/ytt-${TARGETOS}-${TARGETARCH} --output /usr/bin/ytt
-RUN chmod +x /usr/bin/ytt
+RUN curl -fLSs https://github.com/carvel-dev/ytt/releases/download/${YTT_VERSION}/ytt-${TARGETOS}-${TARGETARCH} --output /usr/bin/ytt && \
+  chmod +x /usr/bin/ytt
 
 RUN curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | \
   VERSION=${CIRCLECI_CLI_VERSION} bash
