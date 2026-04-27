@@ -1,5 +1,5 @@
 # Do not upgrade kapitan until performance issues are resolved
-FROM kapicorp/kapitan:0.34.6
+FROM kapicorp/kapitan:0.35.1
 ARG TARGETOS
 ARG TARGETARCH
 
